@@ -15,7 +15,7 @@ Generates a nice button/link to either an external link, or an internal page, si
 
 = Compatibility =
 
-This add-on works onle with version 4 and up.
+This add-on works only with version 4 and up.
 
 == Installation ==
 
