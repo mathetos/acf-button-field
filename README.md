@@ -10,10 +10,7 @@ Generates a nice button/link to either an external link, or an internal page, si
 
 ### Compatibility
 
-This add-on will work with:
-
-* version 4 and up
-* version 3 and bellow
+This add-on works onle with version 4 and up.
 
 ### Installation
 
@@ -35,4 +32,10 @@ include_once('acf-button/acf-button.php');
 
 ### More Information
 
-Please read the readme.txt file for more information
+Forked from: https://github.com/envex/acf-button-field
+
+The original didn't seem to be updated. Here's a quick list of the updates made:
+
+* Removed all ACF 3 code
+* Fixed bug with $button = $field['value'];
+* Added class names to button output for styling. Class names automatically output based on Field label.

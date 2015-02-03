@@ -90,7 +90,7 @@ class acf_field_button extends acf_field
 
 		?>
 
-		<table class="acf-button">
+		<table class="acf-button-fields">
 			<tr>
 				<td valign="top">
 					<label>Text</label>
@@ -109,7 +109,9 @@ class acf_field_button extends acf_field
 						'value' => $field['value']['page_id']
 					)); ?>
 				</td>
-				<td>
+			</tr>
+			<tr>
+				<td colspan="3">
 					<p class="switch"><a href="">Switch to <span><?php echo $switch_text; ?></span> link</a></p>
 					<input type="hidden" value="<?php echo $field['value']['use_internal']; ?>" name="<?php echo $field_name; ?>[use_internal]" class="use_internal" />
 				</td>
@@ -175,14 +177,18 @@ class acf_field_button extends acf_field
 	{
 
 		$field = array_merge($this->defaults, $field);
-		$button = $field['value'];
+		$button = $value;
+//		$field_name = esc_attr( $field['label'] );
+		$field_name = preg_replace('/\s*/', '', $field['label']);
+		// convert the string to all lowercase
+		$classname = strtolower($field_name);
 
 		$use_internal = $button['use_internal'] == 'true' ? true : false;
 
 		$target = $use_internal ? null : ' target="_blank"';
 		$link = $use_internal ? get_permalink($button['page_id']) : $button['link'];
 
-		$value = '<a href="' . $link .'"' . $target . '>' . $button['text'] . '</a>';
+		$value = '<a href="' . $link .'"' . $target . ' class="' . $classname . '">' . $button['text'] . '</a>';
 
 		return $value;
 

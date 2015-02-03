@@ -1,24 +1,21 @@
-=== Advanced Custom Fields: {{field_label}} Field ===
-Contributors: {{wp_user_name}}
-Tags: 
+=== Advanced Custom Fields: Button Field ===
+Contributors: webdevmattcrom
+Tags: custom fields, acf, add on
 Requires at least: 3.4
-Tested up to: 3.3.1
-Stable tag: trunk
+Tested up to: 4.1
+Stable tag: 1.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-{{short_description}}
+Generates a nice button/link to either an external link, or an internal page, similar to the page_link field but will allow you to override the link text.
 
 == Description ==
 
-{{description}}
+Generates a nice button/link to either an external link, or an internal page, similar to the page_link field but will allow you to override the link text.
 
 = Compatibility =
 
-This add-on will work with:
-
-* version 4 and up
-* version 3 and bellow
+This add-on works onle with version 4 and up.
 
 == Installation ==
 
@@ -43,5 +40,14 @@ function my_register_fields()
 
 == Changelog ==
 
-= 0.0.1 =
-* Initial Release.
+Forked from: https://github.com/envex/acf-button-field
+
+The original didn't seem to be updated or maintained, and I needed this for a client, so here's the fork. 
+
+Here's a quick list of the updates made:
+
+= 1.0 =
+
+* Removed all ACF 3 code
+* Fixed bug with $button = $field['value'];
+* Added class names to button output for styling. Class names automatically output based on Field label.
