@@ -3,6 +3,14 @@
 Adds a 'Button' field type for the [Advanced Custom Fields](http://wordpress.org/extend/plugins/advanced-custom-fields/) WordPress plugin.
 
 -----------------------
+### NEED CONTRIBUTIONS
+I have a feature in the works that I'd love a nice pull-request on. If you use this field type, you'll notice that when you select "Internal Link" that it lists the posts of ALL your Post Types. This gets ridiculously unmanageable very quickly.
+
+To address this, [I've manually restricted the post types](https://github.com/mathetos/acf-button-field/blob/master/button-v4.php#L155-L161). But what I'd like to do instead is provide a setting in the field creation screen to add a post type restriction as a multi-select field.
+
+[You can see the beginnings of it on lines 84-111 here](https://github.com/mathetos/acf-button-field/blob/master/button-v4.php#L84-L111). I've populated the post types in a multi-select field, but the values currently cannot be saved. I know I can do this with the WordPress Settings API, but I think there's a more elegant way to do that using ACF conventions instead.
+
+Any tips are appreciated.
 
 ### Overview
 
