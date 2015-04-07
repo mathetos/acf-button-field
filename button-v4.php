@@ -33,6 +33,8 @@ class acf_field_button extends acf_field
 			'dir' => apply_filters('acf/helpers/get_dir', __FILE__),
 			'version' => '1.0.0'
 		);
+		
+		
 
 	}
 	
@@ -58,10 +60,57 @@ class acf_field_button extends acf_field
 		// key is needed in the field names to correctly save the data
 		$key = $field['name'];
 		
-		
 		// Create Field Options HTML
+		?>
+		<tr class="field_option field_option_<?php echo $this->name; ?>">
+			<td class="label">
+				<label><?php _e("Append HTML?",'acf'); ?></label>
+				<p class="description">A good place to add html for Font Icons</p>
+			</td>
+			<td>
+			<?php
+
+				do_action('acf/create_field', array(
+					'type' => 'text',
+					'name' => 'fields['.$key.'][append_html]',
+					'value' => $field['append_html'],
+					'layout' => 'horizontal',
+				));
+
+			?>
+			</td>
+
+		</tr>
+		<!--
+		/*
+		 *  THIS DOESN'T WORK YET
+		 *  This will eventually be a multi-select
+		 *  field for restricting the post types
+		 *  that are output for the internal
+		 *  button link
+
+		<tr class="field_option field_option_<?php  //echo $this->name; ?>">
+			<td class="label">
+				<label><?php //_e("Restrict Post Types?",'acf'); ?></label>
+				<p class="description">Limit Which Post Types are available for the Internal Links Select field</p>
+			</td>
+			<td>
+				<select name="restrict_post_types]" multiple="multiple">
+				<?php
+//					$post_types = get_post_types( '', 'names' );
+//
+//						foreach ( $post_types as $post_type ) {
+//
+//							echo '<option value="' . $post_type . '">' . $post_type . '</option>';
+//					}
+
+				 ?>
+				</select>
+			</td>
+
+		</tr>-->
 		
-	}
+<?php	}
 	
 	
 	/*
@@ -103,10 +152,14 @@ class acf_field_button extends acf_field
 				<td valign="top" class="internal <?php echo $internal_class; ?>">
 					<label>Internal Link</label>
 					<?php
+					$types = array('post', 'page','documentation','download', 'forum');
+
 					do_action('acf/create_field', array(
 						'type' => 'post_object',
 						'name' => $field_name . '[page_id]',
-						'value' => $field['value']['page_id']
+						'value' => $field['value']['page_id'],
+						'post_type' => $types,
+
 					)); ?>
 				</td>
 			</tr>
@@ -141,9 +194,7 @@ class acf_field_button extends acf_field
 		
 		// register acf scripts
 		wp_register_script( 'acf-input-button', $this->settings['dir'] . 'js/input.js', array('acf-input'), $this->settings['version'] );
-		wp_register_style( 'acf-input-button', $this->settings['dir'] . 'css/input.css', array('acf-input'), $this->settings['version'] ); 
-		
-		
+		wp_register_style( 'acf-input-button', $this->settings['dir'] . 'css/input.css', array('acf-input'), $this->settings['version'] ); 		
 		// scripts
 		wp_enqueue_script(array(
 			'acf-input-button',	
@@ -154,8 +205,8 @@ class acf_field_button extends acf_field
 			'acf-input-button',	
 		));
 		
-		
 	}
+
 	
 	/*
 	*  format_value_for_api()
@@ -178,6 +229,11 @@ class acf_field_button extends acf_field
 
 		$field = array_merge($this->defaults, $field);
 		$button = $value;
+		$append =  $field['append_html'];
+		
+		if (!empty($append)) {
+			$html = $field['append_html'];
+		} else { $html = '';}
 //		$field_name = esc_attr( $field['label'] );
 		$field_name = preg_replace('/\s*/', '', $field['label']);
 		// convert the string to all lowercase
@@ -188,7 +244,7 @@ class acf_field_button extends acf_field
 		$target = $use_internal ? null : ' target="_blank"';
 		$link = $use_internal ? get_permalink($button['page_id']) : $button['link'];
 
-		$value = '<a href="' . $link .'"' . $target . ' class="' . $classname . '">' . $button['text'] . '</a>';
+		$value = '<a href="' . $link .'"' . $target . ' class="button ' . $classname . '">' . $button['text'] . ' ' .  $html . '</a>';
 
 		return $value;
 
